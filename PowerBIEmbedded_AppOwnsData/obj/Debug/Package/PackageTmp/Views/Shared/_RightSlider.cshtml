@@ -1,0 +1,143 @@
+﻿@*Expand-Collapse on left navigation bar was not working. For this reason, we put the .js files exactly here and finally moved them into _RightSlider.cshtml. Now they are working*@
+<script src="~/Content/assets/js/ie.assign.fix.min.js"></script>
+<script src="~/Content/assets/vendor/echarts/echarts.min.js"></script>
+<script src="~/Content/assets/vendor/jquery/jquery.min.js"></script>
+<script src="~/Content/assets/vendor/popper/popper.min.js"></script>
+<script src="~/Content/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+@*<script src="~/Content/assets/vendor/select2/js/select2.full.min.js"></script>*@
+<script src="~/Content/assets/vendor/simplebar/simplebar.js"></script>
+<script src="~/Content/assets/vendor/text-avatar/jquery.textavatar.js"></script>
+
+<script src="~/Content/assets/vendor/tippyjs/tippy.all.min.js"></script>
+<script src="~/Content/assets/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="~/Content/assets/vendor/wnumb/wNumb.js"></script>
+
+<script src="~/Content/assets/js/main.js"></script>
+<script src="~/Content/assets/vendor/jquery-circle-progress/circle-progress.min.js"></script>
+
+
+<script src="~/Content/assets/js/preview/default-dashboard.min.js"></script>
+<script src="~/Content/assets/vendor/jquery-confirm/jquery-confirm.min.js"></script>
+
+<div class="sidebar-mobile-overlay"></div>
+
+<div class="settings-panel">
+    <div class="settings-panel__header">
+        <span class="settings-panel__close ua-icon-modal-close"></span>
+        <h5 class="settings-panel__heading">Report Library</h5>
+        <div class="settings-panel__desc">Customize Reports</div>
+    </div>
+    <div class="settings-panel__body">
+        <div class="settings-panel__layout-options">
+            <h6 class="settings-panel__block-heading">Layout Options</h6>
+            @*<div class="settings-panel__layout-option">
+                <label class="switch-inline">
+                    <span class="switch">
+                        <input type="checkbox" id="collapse-sidebar">
+                        <span class="switch-slider"></span>
+                    </span>
+                    <span class="switch-inline__text">Collapse Sidebar</span>
+                </label>
+            </div>
+            <div class="settings-panel__layout-option">
+                <label class="switch-inline">
+                    <span class="switch">
+                        <input type="checkbox" id="hide-sidebar">
+                        <span class="switch-slider"></span>
+                    </span>
+                    <span class="switch-inline__text">Hide Sidebar</span>
+                </label>
+            </div>
+            <div class="settings-panel__layout-option">
+                <label class="switch-inline">
+                    <span class="switch">
+                        <input type="checkbox" id="full-height-sidebar">
+                        <span class="switch-slider"></span>
+                    </span>
+                    <span class="switch-inline__text">Full Height Sidebar</span>
+                </label>
+            </div>
+            <div class="settings-panel__layout-option">
+                <label class="switch-inline">
+                    <span class="switch">
+                        <input type="checkbox" id="rounded-form-controls">
+                        <span class="switch-slider"></span>
+                    </span>
+                    <span class="switch-inline__text">Rounded Form Controls</span>
+                </label>
+            </div>*@
+        </div>
+
+
+        @*<div class="settings-panel__theme-colors">
+            <h6 class="settings-panel__block-heading">Theme Colors</h6>
+            <ul class="list-unstyled">
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-b">
+                        <span class="color-radio__color color-radio__color--deep-cerulean"></span>
+                        <span class="color-radio__text">#2</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color is-checked">
+                        <input type="radio" name="settings_color" data-style="style" checked>
+                        <span class="color-radio__color color-radio__color--river-bad"></span>
+                        <span class="color-radio__text">#3</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-d">
+                        <span class="color-radio__color color-radio__color--sun-juan"></span>
+                        <span class="color-radio__text">#4</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-e">
+                        <span class="color-radio__color color-radio__color--bermuda-gray"></span>
+                        <span class="color-radio__text">#5</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-f">
+                        <span class="color-radio__color color-radio__color--deep-sea"></span>
+                        <span class="color-radio__text">#6</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-i">
+                        <span class="color-radio__color color-radio__color--wine-berry"></span>
+                        <span class="color-radio__text">#7</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-g">
+                        <span class="color-radio__color  color-radio__color--big-stone"></span>
+                        <span class="color-radio__text">#8</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-j">
+                        <span class="color-radio__color color-radio__color--killarney"></span>
+                        <span class="color-radio__text">#9</span>
+                    </label>
+                </li>
+                <li>
+                    <label class="color-radio js-settings-color">
+                        <input type="radio" name="settings_color" data-style="style-h">
+                        <span class="color-radio__color color-radio__color--kabul"></span>
+                        <span class="color-radio__text">#10</span>
+                    </label>
+                </li>
+            </ul>
+        </div>*@
+
+
+    </div>
+</div>

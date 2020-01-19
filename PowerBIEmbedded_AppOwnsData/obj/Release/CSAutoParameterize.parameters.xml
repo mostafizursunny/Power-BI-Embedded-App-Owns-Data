@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-SFStorage_VS_Solution-20171221045426.mdf;Initial Catalog=aspnet-SFStorage_VS_Solution-20171221045426;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cln\\PowerBIEmbedded-Aaron\\App\ Owns\ Data\\PowerBIEmbedded_AppOwnsData\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DBConnection-Web.config Connection String" description="DBConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=dwanalytics.database.windows.net;Initial Catalog=DWBI;User Id=biportal;Password=Letmein123;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cln\\PowerBIEmbedded-Aaron\\App\ Owns\ Data\\PowerBIEmbedded_AppOwnsData\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DBConnection']/@connectionString" />
+  </parameter>
+</parameters>

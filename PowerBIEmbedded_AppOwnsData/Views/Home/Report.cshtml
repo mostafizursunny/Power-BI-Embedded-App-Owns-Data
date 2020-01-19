@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@RenderPage("~/Views/Shared/_HeaderScripts.cshtml", new { TitleText = "Home | Reporting Portal" })
+
+<style type="text/css">
+    /*#iframeContent
+    {
+        position:absolute; left: 0; right: 0; bottom: 0; top: 0px;
+    }*/
+
+    @@media screen and (max-width: 1400px) and (min-width: 800px) {
+        #reportContainer {
+            height: 650px;
+        }
+
+        iframe#reportContainer {
+            min-width: 800px;
+            height: 650px;
+            margin-left: 0px; /* clipping left side of page */
+            margin-top: -132px; /* clipping top of page */
+            overflow: hidden;
+            resize: none;
+        }
+
+        #NonPowerBi {
+            min-width: 800px;
+            height: 800px;
+            overflow: hidden; /* if you don't want a scrollbar, set to hidden */
+            min-height: 317px;
+        }
+    }
+
+    @@media screen and (max-width: 2000px) and (min-width: 1401px) {
+        #reportContainer {
+            height: 890px;
+        }
+
+        iframe#reportContainer {
+            min-width: 1401px;
+            height: 890px;
+            margin-top: -132px; /* clipping top of page */
+            overflow: hidden;
+            resize: none;
+        }
+
+        #NonPowerBi {
+            min-width: 1401px;
+            height: 890px;
+            overflow: hidden; /* if you don't want a scrollbar, set to hidden */
+            min-height: 317px;
+        }
+    }
+
+    iframe {
+        border: 0;
+    }
+</style>
+
+<body>
+
+    @RenderPage("~/Views/Shared/_TopHeaderPanel.cshtml")
+
+    <div class="page-wrap">
+
+        @RenderPage("~/Views/Shared/_LeftSidebar.cshtml", new { ReportList = ViewBag.Reports })
+
+        <div class="page-content">
+
+            <div class="container-fluid">
+                <div class="page-content__header">
+                    <div>
+                        <h2 class="page-content__header-heading">Dashboard</h2>
+                        <div class="page-content__header-description">Data Water BI Portal Report</div>
+                    </div>
+                    <div class="page-content__header-meta">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="btn-group btn-collection btn-group-sm mr-3">
+                                    <button class="btn btn-outline-success active" type="button" id="full_screen">Full Screen</button>
+                                    <button class="btn btn-outline-success" type="button" id="print">Print</button>
+                                    <button class="btn btn-outline-success" type="button" id="refresh">Refresh</button>
+                                    <button class="btn btn-outline-success" type="button" id="reload">Reload</button>
+                                    <button class="btn btn-outline-success" type="button" id="edit">Edit Report</button>
+                                    <button class="btn btn-outline-success" type="button" id="save">Save Report</button>
+                                    <button class="btn btn-outline-success" type="button" id="saveas">Saveas Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="reportContainer"></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*Expand-Collapse on left navigation bar was not working. For this reason, we put the .js files exactly here and finally moved them into _RightSlider.cshtml. Now they are working*@
+    @RenderPage("~/Views/Shared/_RightSlider.cshtml")
+
+    @*<span class="settings-panel-control">
+            <span class="settings-panel-control__icon ua-icon-settings"></span>
+        </span>*@
+    <script src="~/Content/assets/js/preview/settings-panel.min.js"></script>
+
+    <script src="https://npmcdn.com/es6-promise@3.2.1"></script>
+    <script src="~/scripts/powerbi.js"></script>
+    <script>
+$(document).ready(function()
+{
+    // Read embed application token from Model
+    var accessToken = "@Model.EmbedToken.Token";
+
+    // Read embed URL from Model
+    var embedUrl = "@Html.Raw(Model.EmbedUrl)";
+
+    // Read report Id from Model
+    var embedReportId = "@Model.Id";
+
+    // Get models. models contains enums that can be used.
+    var models = window['powerbi-client'].models;
+
+    var config = {
+        type: 'report',
+        tokenType: models.TokenType.Embed,
+        accessToken: accessToken,
+        embedUrl: embedUrl,
+        id: embedReportId,
+        permissions: models.Permissions.All,
+        settings: {
+            filterPaneEnabled: false,
+            navContentPaneEnabled: true
+        }
+    };
+
+        // Get a reference to the embedded report HTML element
+        var reportContainer = $('#reportContainer')[0];
+        // Embed the report and display it within the div container.
+        var report = powerbi.embed(reportContainer, config);
+
+        $("#full_screen").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.fullscreen();
+        });
+
+        $("#refresh").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.refresh()
+                .then(function (result) {
+                    console.log("Refreshed");
+                })
+                .catch(function (errors) {
+                    console.log(errors);
+                });
+        });
+
+        $("#reload").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.reload()
+                .then(function (result) {
+                    Log.logText("Reloaded");
+                })
+                .catch(function (errors) {
+                    Log.log(errors);
+                });
+        });
+
+        $("#print").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.print()
+                .then(function (result) {
+                    console.log(result);
+                })
+                .catch(function (errors) {
+                    console.log(errors);
+                });
+
+        });
+
+        $("#edit").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.switchMode("edit");
+        });
+
+        $("#save").click(function () {
+            var embedContainer = $('#reportContainer')[0];
+            report = powerbi.get(embedContainer);
+            report.save();
+            alert('Report Saved Successfully.');
+            report.switchMode("view");
+        });
+
+        $("#saveas").click(function ()
+        {
+            var txt;
+            var rep = prompt("Please enter your new report name:", "My Report");
+            if (rep == null || rep == "")
+            {
+                alert('Please provide a valid report name.');
+            }
+            else
+            {
+                var embedContainer = $('#reportContainer')[0];
+                report = powerbi.get(embedContainer);
+                var saveAsParameters = {
+                    name: rep
+                };
+                report.saveAs(saveAsParameters);
+                alert('Report: ' + rep + ' has been created on your power bi portal');
+            }
+        });
+
+
+
+
+        //When the report is loaded, Get all pages of that report and populate the dropdown at top with report page names
+        report.on('loaded', function ()
+        {
+            var reportFilterData = [];
+            var pageMissingASMSRFilterData = [];
+            if ("@ViewBag.ReportId" == "b9ec88a5-ce59-4ec8-b75a-25460e4f9c92")
+            {
+                const filter1 = {
+                    $schema: "http://powerbi.com/product/schema#basic",
+                    target: {
+                        table: "vwCLICountry",
+                        column: "Country"
+                    },
+                    operator: "In",
+                    values: ["@Session["Country"].ToString()"]
+                };
+                reportFilterData.push(filter1);
+            }
+
+            if (reportFilterData.length != 0)
+            {
+                console.log('Filter applied');
+                report.setFilters(reportFilterData)
+                    .catch(function (errors) {
+                        console.log(errors);
+                    });
+            }
+            
+        });
+
+
+
+
+});
+
+    </script>
+
+
+</body>
+</html>

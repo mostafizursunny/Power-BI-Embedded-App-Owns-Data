@@ -1,0 +1,130 @@
+﻿@model PowerBIEmbedded_AppOwnsData.Models.IndexConfig
+
+<!DOCTYPE html>
+<html lang="en">
+
+@RenderPage("~/Views/Shared/_HeaderScripts.cshtml", new { TitleText = "Home" })
+
+<body>
+
+    @RenderPage("~/Views/Shared/_TopHeaderPanel.cshtml")
+
+    <div class="page-wrap">
+
+        @RenderPage("~/Views/Shared/_LeftSidebar.cshtml", new { ReportList = ViewBag.Reports })
+
+        <div class="page-content">
+
+            <div class="container-fluid">
+                <div class="page-content__header">
+                    <div>
+                        <h2 class="page-content__header-heading">Report List</h2>
+                        <div class="page-content__header-description">Token Usages: </div>
+                    </div>
+                    <div class="page-content__header-meta">
+
+                    </div>
+                </div>
+
+                @*<div class="row">
+
+                        @{var i = 0;}
+                        @foreach (var report in ViewBag.Reports)
+                        {
+                            i = i + 1;
+                            if(i%4 == 0)
+                            {
+                                Html.Raw("</div><div class='row'>");
+                            }
+                            else
+                            {
+                                <div class="col-lg-3">
+                                    <div class="statistic-widget statistic-widget-c statistic-widget-c--heliotrope">
+
+                                        <div class="statistic-widget-c__heading">@report.Name</div>
+                                        <div class="statistic-widget-c__body">
+                                            <div class="statistic-widget-c__value">@i</div>
+                                            <div class="statistic-widget-c__title"></div>
+                                            <a href="@Url.Action("ReportViewer", "Home", new { Gid = "d5e750af-f2d7-4437-a514-95c9d2c4c29d", Rid = report.Id })" class="statistic-widget-c__link">Launch</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>*@
+
+
+
+                <div class="row">
+
+                    <div class="col-xl-8">
+                        <div class="widget widget-controls widget-table widget-date-paid">
+                            <div class="widget-controls__header widget-controls__header--bordered">
+                                <div>
+                                    <span class="widget-controls__header-icon ua-icon-widget-money"></span>
+                                    Reports
+                                </div>
+                            </div>
+                            <div class="widget-controls__content js-scrollable" data-simplebar="init">
+                                <div class="simplebar-track vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="top: 2px; height: 330px;"></div></div><div class="simplebar-track horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar"></div></div><div class="simplebar-scroll-content" style="padding-right: 17px; margin-bottom: -34px;">
+                                    <div class="simplebar-content" style="padding-bottom: 17px; margin-right: -17px;">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Serial</th>
+                                                    <th>Report Name</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{var i = 0;}
+                                                @foreach (var report in ViewBag.Reports)
+                                                {
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@report.Name</td>
+                                                        <td><a href="@Url.Action("ReportViewer", "Home", new { Gid = "d5e750af-f2d7-4437-a514-95c9d2c4c29d", Rid = report.Id })" class="btn btn-info">Launch</a></td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*Expand-Collapse on left navigation bar was not working. For this reason, we put the .js files exactly here and finally moved them into _RightSlider.cshtml. Now they are working*@
+    @RenderPage("~/Views/Shared/_RightSlider.cshtml")
+
+    <span class="settings-panel-control">
+        <span class="settings-panel-control__icon ua-icon-settings"></span>
+    </span>
+    <script src="~/Content/assets/js/preview/settings-panel.min.js"></script>
+
+    <script src="https://npmcdn.com/es6-promise@3.2.1"></script>
+    <script src="~/scripts/powerbi.js"></script>
+
+    <script>
+        $(document).ready(function()
+        {
+            var token_usages = "@ViewBag.TokenUsages";
+            token_usages = $.parseJSON(token_usages.replace(/&quot;/g, '"'));
+            $(".page-content__header-description").text("Token Usages: " + token_usages.features[1].additionalInfo.usage + "%");
+        });
+    </script>
+</body>
+</html>

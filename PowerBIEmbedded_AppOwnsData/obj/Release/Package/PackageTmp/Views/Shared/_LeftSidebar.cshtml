@@ -1,0 +1,155 @@
+﻿<div class="sidebar-section">
+    <div class="sidebar-section__scroll">
+        <!--<div class="sidebar-section__user has-background">
+      <img src="img/users/user-19.png" alt="" class="sidebar-section__user-avatar rounded-circle">
+
+      <div class="dropdown sidebar-section__user-dropdown">
+        <a class="dropdown-toggle sidebar-section__user-dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Joyce Walsh
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="#">Help</a>
+          <a class="dropdown-item" href="#">Sign Out</a>
+        </div>
+      </div>
+    </div>-->
+        <div class="sidebar-user-a">
+            @if(Session["UserId"].ToString() == "aaron.gong@datawater.tech")
+            {
+                <img src="~/Content/assets/img/Aaron.png" alt="" class="sidebar-user-a__avatar rounded-circle">
+            }
+            else
+            {
+                <img src="~/Content/assets/img/users/user-1-lg.png" alt="" class="sidebar-user-a__avatar rounded-circle">
+            }
+            <div class="sidebar-user-a__name">Hello @Session["FirstName"].ToString()</div>
+            
+            @if (Convert.ToInt32(Session["Role"]) == 1)
+            {
+                <div class="sidebar-user-a__desc">Admin</div>
+            }
+            else
+            {
+                <div class="sidebar-user-a__desc">General</div>
+            }
+            <a href="@Url.Action("Index", "Home")" class="btn icon-left sidebar-user-a__link">
+                Reporting Portal <span class="btn-icon ua-icon-user-solid"></span>
+            </a>
+        </div>
+        <div>
+            <div class="sidebar-section__separator">Menu</div>
+            <ul class="sidebar-section-nav">
+                <li class="sidebar-section-nav__item">
+                    <a class="sidebar-section-nav__link" href="@Url.Action("Index", "Home")">
+                        <span class="sidebar-section-nav__item-icon ua-icon-navbar-open"></span>
+                        <span class="sidebar-section-nav__item-text">Home</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-section-nav__item">
+                    <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                        <span class="sidebar-section-nav__item-icon ua-icon-home"></span>
+                        <span class="sidebar-section-nav__item-text">Reports</span>
+                        @*<span class="badge sidebar-section-nav__badge">1</span>*@
+                    </a>
+                    <ul class="sidebar-section-subnav">
+                        @{
+                            foreach (var report in @Page.ReportList)
+                            {
+                                <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="@Url.Action("ReportViewer", "Home", new { Gid = "00666379-eea4-4ff6-9b82-ab7653cadcaa", Rid = report.Id })">@report.Name</a></li>
+                            }
+                        }
+                        
+                        @*<li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">Booking Dashboard</a></li>
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">Medical Dashboard</a></li>
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">Sales Dashboard</a></li>
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">Payment Dashboard</a></li>*@
+                    </ul>
+                </li>
+
+                @if (Convert.ToInt32(Session["Role"]) == 1)
+                {
+                    <li class="sidebar-section-nav__item">
+                        <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                            <span class="sidebar-section-nav__item-icon iconfont-layout"></span>
+                            <span class="sidebar-section-nav__item-text">User Management</span>
+                        </a>
+                        <ul class="sidebar-section-subnav">
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="@Url.Action("ManageUsers", "Home")">Manage Users</a></li>
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="@Url.Action("CreateUser", "Home")">Create User</a></li>
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="@Url.Action("ChangePassword", "Home")">Change Password</a></li>
+                        </ul>
+                    </li>
+                }
+                
+            </ul>
+
+
+
+
+
+            <ul class="sidebar-section-nav">
+
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                </li>
+                <li class="sidebar-section-nav__item">
+
+                    <ul class="sidebar-section-subnav">
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="tasks.html">Tasks List</a></li>
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="task-overview.html">Task Overview</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-section__separator"></div>
+        <ul class="sidebar-section-nav">
+            @*<li class="sidebar-section-nav__item">
+                <a class="sidebar-section-nav__link" href="social-feed.html">
+                    <span class="sidebar-section-nav__item-icon iconfont-activity"></span>
+                    <span class="sidebar-section-nav__item-text">Social Feed</span>
+                </a>
+            </li>
+            <li class="sidebar-section-nav__item">
+                <a class="sidebar-section-nav__link" href="social-profile.html">
+                    <span class="sidebar-section-nav__item-icon iconfont-user-circle"></span>
+                    <span class="sidebar-section-nav__item-text">Social Profile</span>
+                </a>
+            </li>*@
+        </ul>
+    </div>
+    <!--<div class="sidebar-section-nav__footer">
+        <ul class="sidebar-section-nav">
+          <li class="sidebar-section-nav__item sidebar-section-nav__item-btn mb-4">
+            <a href="#" class="btn btn-info btn-block">Create project</a>
+          </li>
+        </ul>
+        <div class="sidebar__collapse">
+          <span class="icon ua-icon-collapse-left-arrows"></span>
+        </div>
+      </div>
+    </div>
+    -->
+</div>

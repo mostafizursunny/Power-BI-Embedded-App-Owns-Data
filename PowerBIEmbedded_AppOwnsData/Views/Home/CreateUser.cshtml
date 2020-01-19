@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@RenderPage("~/Views/Shared/_HeaderScripts.cshtml", new { TitleText = "Admin | Create User" })
+
+
+<body>
+
+    @RenderPage("~/Views/Shared/_TopHeaderPanel.cshtml")
+
+    <div class="page-wrap">
+
+        @RenderPage("~/Views/Shared/_LeftSidebar.cshtml", new { ReportList = ViewBag.Reports })
+
+        <div class="page-content">
+
+            <div class="container-fluid">
+                <div class="page-content__header">
+                    <div>
+                        <h2 class="page-content__header-heading">Create User</h2>
+                        <div class="page-content__header-description"></div>
+                    </div>
+                    <div class="page-content__header-meta">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="btn-group btn-collection btn-group-sm mr-3">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-container">
+                    <h3>Create User</h3>
+                    <div class="row">
+                        <div class="col-4">
+                            @using (Html.BeginForm("ManageUsers", "Home", FormMethod.Post))
+                            {
+                                <h5>Email</h5>
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="Enter Email Address" class="form-control" required>
+                                </div>
+                                <h5>Password</h5>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="password" name="password" placeholder="Password" value="@ViewBag.SystemGeneratedPassword" required>
+                                </div>
+                                <h5>First Name</h5>
+                                <div class="form-group">
+                                    <input type="text" name="first_name" placeholder="First Name" class="form-control" required>
+                                </div>
+                                <h5>Last Name</h5>
+                                <div class="form-group">
+                                    <input type="text" name="last_name" placeholder="Last Name" class="form-control">
+                                </div>
+                                <h5>Contact</h5>
+                                <div class="form-group">
+                                    <input type="text" name="contact" placeholder="Contact" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Select Role</label>
+                                    <select class="form-control" id="exampleSelect1" name="role" required>
+                                        <option value="1">Admin</option>
+                                        <option value="2">General</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="action" value="CREATE">
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-info">Create</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*Expand-Collapse on left navigation bar was not working. For this reason, we put the .js files exactly here and finally moved them into _RightSlider.cshtml. Now they are working*@
+    @RenderPage("~/Views/Shared/_RightSlider.cshtml")
+
+    @*<span class="settings-panel-control">
+            <span class="settings-panel-control__icon ua-icon-settings"></span>
+        </span>*@
+    <script src="~/Content/assets/js/preview/settings-panel.min.js"></script>
+
+    <script src="https://npmcdn.com/es6-promise@3.2.1"></script>
+    <script src="~/scripts/powerbi.js"></script>
+    <script>
+$(document).ready(function()
+{
+    
+
+});
+
+    </script>
+
+
+</body>
+</html>
